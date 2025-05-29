@@ -13,6 +13,7 @@
         darkMode: 'class',
     }
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -233,13 +234,15 @@
 
         /* White tick inside the green circle */
         input[type="checkbox"]:checked + .custom-checkbox::after{
-            content: "🗸";
+            content: "\f00c"; /* Unicode for fa-check */
+            font-family: "Font Awesome 6 Free"; /* or "Font Awesome 5 Free" depending on version */
+            font-weight: 900; /* Use 900 for solid icons */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1rem;
             font-weight: bold;
         }
         #taskList.fade-out{
@@ -262,7 +265,7 @@
     </style>
 </head>
 <body id="todoApp" class="dark:bg-gray-800 dark:text-white "> 
-    <section id="allContent" class=" p-5 md:mx-64 sm:mx-20 mx-0.5 ">
+    <section id="allContent" class=" p-5 md:mx-64 sm:mx-20">
      <div id="addingContainer" class="rounded-xl pt-3 bg-white  dark:bg-gray-700">
         <div class="toggle-wrapper">
             <button id="toggleTheme" class="relative right-0 top-0" >
