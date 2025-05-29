@@ -41,13 +41,13 @@ function handleEdit(index){
     }
     else if(newText !== null){
         alert("Enter a valid task");
-        newText = prompt("Enter your task: ", tasks[index].text);
-        if(newText !== null && newText.trim() !== ""){
-            tasks[index].text = newText;
+    const  newText2 = prompt("Enter your task: ", tasks[index].text);
+        if(newText2 !== null && newText2.trim() !== ""){
+            tasks[index].text = newText2;
             saveTask();
             displayTask();
         }
-        else if(newText !== null){
+        else if(newText2 !== null){
             alert("Enter a valid task");
         }
     }
