@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="shortcut icon" href="./images/icons8-reminders-32.png" type="image/x-icon">
+    <meta name="theme-color" content="#EDF2FA">
+    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+    }
+    </script>
+    <style>
+        body{
+            font-family: 'Times New Roman', Times, serif;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background-color:  #EDF2FA;
+        }
+        .toggle-wrapper{
+            position: relative;
+            display: flex;
+            justify-content: end;
+            margin-right: 28px;
+        }
+        @media  screen and (max-width:500px) {
+            .toggle-wrapper{
+                margin-right: 15px;
+            }
+        }
+        /* toggle button code  */
+        #toggleTheme,.switch {
+        cursor: pointer;
+        font-size: 17px;
+        position: relative;
+        display: inline-block;
+        width: 3.5em;
+        height: 1.9em;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        }
+
+        /* The slider */
+        .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #B0B0B0;
+        border: 1px solid #B0B0B0;
+        transition: .4s;
+        border-radius: 32px;
+        outline: none;
+        }
+
+        .slider:before {
+        position: absolute;
+        content: "";
+        height: 1.8rem;
+        width: 1.8rem;
+        border-radius: 50%;
+        outline: 1.5px solid #B0B0B0;
+        left: 1px;
+        bottom: 1px;
+        background-color: #fff;
+        transition: transform .25s ease-in-out 0s;
+        }
+
+        .slider-icon {
+        opacity: 0;
+        height: 10px;
+        width: 10px;
+        position: absolute;
+        z-index: 999;
+        right: 0%;
+        top: 30%;
+        transition: right ease-in-out .3s, opacity ease-in-out .15s;
+        }
+
+        input:checked + .slider {
+        background-color: #222222;
+        }
+
+        input:checked + .slider .slider-icon {
+        opacity: 1;
+        }
+
+        input:checked + .slider:before {
+        transform: translateX(1.56em);
+        outline-color:1px solid rgb(255, 255, 255);
+        background-color: #374151;
+    
+        }
+
+
+        /* toggl button for small screen */
+        @media screen and (max-width:500px){
+        #toggleTheme,.switch {
+        font-size: 14px;
+        width: 2.5em;
+        height: 1.5em;
+        }
+        .slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #B0B0B0;
+        border-radius: 9999px;
+        transition: 0.4s;
+        }
+
+        /* The ball */
+        .slider:before {
+        content: "";
+        position: absolute;
+        height: 1.1em;
+        width: 1.1em;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.25s ease-in-out;
+        }
+
+        /* Ball moves within bounds only */
+        input:checked + .slider:before {
+        transform: translate(1em, -50%);
+        }
+    }
+    /* toggle button code ended */
+
+
+    
+        #listArea,#addingContainer{
+            box-shadow: 0 0 15px  rgba(0, 0, 0, 0.47);
+        }
+        html.dark #addingContainer, html.dark #listArea{
+            /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.46); */
+            border: 1px solid rgba(255, 255, 255, 0.294);
+        }
+        #inputTask{
+            border: 1px solid rgba(0, 0, 0, 0.258);
+        }
+        html.dark #inputTask{
+            border: 1px solid rgba(255, 255, 255, 0.646);
+        }
+         #addingTask > button, #checking-buttons > button{
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.902);
+         }
+        html.dark #addingTask > button, html.dark #checking-buttons > button{
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 254, 254, 0.402);
+         }
+        #addingTask > button:hover, #checking-buttons > button:hover{
+            transform: scale(1.05);
+        }
+        #addingTask > button:active, #checking-buttons > button:active{
+            transform: scale(0.5);
+        }
+        /* task list area which contains all tasks */
+        #taskList > li{
+            border: 1px solid rgba(0, 0, 0, 0.258);
+            box-shadow: 0 0 10px  rgba(0, 0, 0, 0.114);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 20px 3px 10px;
+            margin: 10px 0;
+        }
+        html.dark #taskList > li{
+            border: 1px solid rgba(255, 255, 255, 0.646)
+        }
+        #checkBoxButton{
+            cursor:pointer;
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem;
+        }
+
+        #checking-buttons > button{
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.463);
+        }
+        /* Hide native checkbox but keep it accessible  */
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 1.25rem;  
+            height: 1.25rem;
+            margin-top: 4px;
+        }
+
+        /* Custom checkbox look */
+        .dark.custom-checkbox{
+            background-color: rgb(16, 15, 15);
+        }
+        .custom-checkbox {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border: 2px solid red;
+            border-radius: 9999px; /* fully rounded */
+            position: relative;
+            margin-top: 4px;
+        }
+        html.dark .custom-checkbox{
+            background-color: rgb(55, 65, 81);
+        }
+
+        /* When checkbox is checked, green background */
+        input[type="checkbox"]:checked + .custom-checkbox {
+            background-color: #22c55e; /* Tailwind's green-500 */
+            border-color: #22c55e;
+        }
+
+        /* White tick inside the green circle */
+        input[type="checkbox"]:checked + .custom-checkbox::after {
+            content: "🗸";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        #taskList.fade-out{
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #taskList.fade-in{
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body id="todoApp" class="dark:bg-gray-800 dark:text-white "> 
+    <section id="allContent" class=" p-5 md:mx-64 sm:mx-20 mx-5 ">
+     <div id="addingContainer" class="rounded-xl pt-3 bg-white  dark:bg-gray-700">
+        <div class="toggle-wrapper">
+            <button id="toggleTheme" class="relative right-0 top-0" >
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider">
+                <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg> 
+                </span>
+            </label>
+        </button>
+        </div>
+        <h1 class="text-5xl text-center font-bold text-blue-700 dark:text-blue-500">To-Do List</h1>
+        <div id="form" class="p-3 pb-4 sm:p-7 text-lg text-center">
+        <form id="addingTask">
+            <input type="text" placeholder="What Do You Want to Do?" id="inputTask" class=" w-full rounded-xl p-1 pl-5 focus:outline-0 mb-2  dark:placeholder:text-gray-100">
+            <button id="addButton" class="bg-blue-600 text-white p-10 py-1 my-2 rounded-2xl">Add</button>
+        </form></div>
+     </div>
+     <div id="listArea" class="mt-5 p-7 rounded-xl bg-white dark:bg-gray-700 ">
+        <h2 class="text-3xl text-blue-700 dark:text-blue-500">Tasks</h2>
+        <div id="checking-buttons" class="flex justify-between md:justify-around md:py-5 py-3">
+            <button class=" bg-blue-600 py-0.5 px-5 rounded-lg text-white " id="all">All</button>
+            <button class=" bg-red-600 py-0.5 px-1 md:py-1.5 md:px-3 rounded-lg text-white " id="not-completed">Not Completed</button>
+            <button class=" bg-green-600 py-0.5 px-1 rounded-lg  text-white" id="completed">Completed</button>
+        </div>
+        <ul id="taskList" class="text-xl">
+            <!-- all the added tasks will appear here -->
+        </ul>
+     </div>
+     </section>
+
+
+     <script src="./script.js"></script>
+</body>
+</html>
