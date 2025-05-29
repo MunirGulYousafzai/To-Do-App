@@ -96,8 +96,7 @@ function displayTask(){
         span.className = "custom-checkbox";
         // create p for displaying the text of task
         const taskText = document.createElement("p");
-        taskText.className = "inline-block";
-        taskText.className = "task-text";
+        taskText.className = "inline-block task-text text-black dark:text-white pt-0.5";
         taskText.textContent = taskItem.text;
         if(taskItem.completed){
             taskText.style.textDecoration = "line-through";
