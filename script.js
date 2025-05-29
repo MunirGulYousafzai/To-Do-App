@@ -285,9 +285,13 @@ window.addEventListener("DOMContentLoaded", function() {
 // it's for smalling the fontsize of buttons when the scree is small
 function makesButtonSmall(){
     if(window.innerWidth <= 395){
-        document.getElementById("all").style.fontSize = "12px";
-        document.getElementById("not-completed").style.fontSize = "12px";
-        document.getElementById("completed").style.fontSize = "12px";
+        document.getElementById("all").style.fontSize = "14px";
+        document.getElementById("all").style.padding = "3px";
+        document.getElementById("all").style.paddingInline = "20px";
+        document.getElementById("not-completed").style.fontSize = "14px";
+        document.getElementById("not-completed").style.padding = "3px";
+        document.getElementById("completed").style.fontSize = "14px";
+        document.getElementById("completed").style.padding = "3px";
     }
 }
 
