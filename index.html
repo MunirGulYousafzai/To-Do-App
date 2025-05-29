@@ -250,10 +250,19 @@
             opacity: 1;
             transition: opacity 0.3s ease;
         }
+        #taskList  p{
+            display: inline-block;
+            padding-top: 2px;
+            color: black;
+
+        }
+        html.dark #taskList  p{
+            color:white;
+        }
     </style>
 </head>
 <body id="todoApp" class="dark:bg-gray-800 dark:text-white "> 
-    <section id="allContent" class=" p-5 md:mx-64 sm:mx-20 mx-1 ">
+    <section id="allContent" class=" p-5 md:mx-64 sm:mx-20 mx-0.5 ">
      <div id="addingContainer" class="rounded-xl pt-3 bg-white  dark:bg-gray-700">
         <div class="toggle-wrapper">
             <button id="toggleTheme" class="relative right-0 top-0" >

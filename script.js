@@ -96,7 +96,7 @@ function displayTask(){
         span.className = "custom-checkbox";
         // create p for displaying the text of task
         const taskText = document.createElement("p");
-        taskText.className = "inline-block task-text text-black dark:text-white pt-0.5";
+        taskText.className = "task-text";
         taskText.textContent = taskItem.text;
         if(taskItem.completed){
             taskText.style.textDecoration = "line-through";
@@ -220,8 +220,8 @@ function hideLongWords(){
         document.querySelectorAll(".task-text").forEach((tasks) =>{
             const fullText = tasks.textContent;
             const words = fullText;
-            if(words.length > 14){
-                tasks.textContent = words.slice(0,11) + "...";
+            if(words.length > 10){
+                tasks.textContent = words.slice(0,10) + "...";
             }
         });
     }
